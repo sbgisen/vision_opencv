@@ -2,16 +2,14 @@ cmake_minimum_required(VERSION 3.0.2)
 project(cv_bridge)
 
 find_package(catkin REQUIRED COMPONENTS rosconsole sensor_msgs)
+set(CMAKE_CXX_FLAGS "-fpermissive")
 
 if(NOT ANDROID)
   find_package(PythonLibs)
-
-  if(PYTHONLIBS_VERSION_STRING VERSION_LESS "3.8")
-    # Debian Buster
-    find_package(Boost REQUIRED python37)
-  else()
-    # Ubuntu Focal
+  if(PYTHONLIBS_VERSION_STRING VERSION_LESS 3)
     find_package(Boost REQUIRED python)
+  else()
+    find_package(Boost REQUIRED python3)
   endif()
 else()
 find_package(Boost REQUIRED)
